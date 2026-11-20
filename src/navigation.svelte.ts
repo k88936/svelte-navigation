@@ -332,7 +332,10 @@ export class NavigationRoot {
     private url(tab: string, entry: ScreenEntry): string {
         const pattern = this.patterns.get(tab)?.[entry.name];
         if (pattern === undefined) return this.currentUrl || `${base}/`;
-        return base + buildPath(pattern, entry.params);
+        const path = buildPath(pattern, entry.params);
+        // A base other than `/` (`BASE_URL` for a site in a subdirectory) has no trailing
+        // slash here, so a relative screen path needs one put back.
+        return path.startsWith('/') ? base + path : `${base}/${path}`;
     }
 
     private write(mode: 'push' | 'replace', controller: StackController, entry: ScreenEntry, url: string): void {
