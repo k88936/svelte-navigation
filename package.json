@@ -1,6 +1,6 @@
 {
     "name": "@k88936/svelte-navigation",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "type": "module",
     "svelte": "./src/index.ts",
     "exports": {
@@ -14,18 +14,24 @@
     ],
     "scripts": {
         "dev": "vite --config playground/vite.config.ts",
-        "build": "vite build --config playground/vite.config.ts --base=/svelte-navigation/ && cp playground/dist/index.html playground/dist/404.html"
+        "build": "vite build --config playground/vite.config.ts --base=/svelte-navigation/ && cp playground/dist/index.html playground/dist/404.html",
+        "test": "pnpm test:unit && pnpm test:e2e",
+        "test:unit": "vitest run",
+        "test:e2e": "playwright test"
     },
     "peerDependencies": {
         "svelte": "^5.0.0"
     },
     "devDependencies": {
+        "@playwright/test": "^1.65.1",
         "@sveltejs/vite-plugin-svelte": "7.3.1",
         "@tailwindcss/vite": "4.3.3",
+        "jsdom": "^31.0.1",
         "svelte": "5.57.3",
         "tailwindcss": "4.3.3",
         "typescript": "~5.9.3",
-        "vite": "8.3.5"
+        "vite": "8.3.5",
+        "vitest": "^5.1.1"
     },
     "publishConfig": {
         "access": "public"

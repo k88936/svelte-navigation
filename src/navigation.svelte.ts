@@ -330,10 +330,14 @@ export class NavigationRoot {
         return this.modes.some((mode) => mode.id === id);
     }
 
-    /** A mode that survived its own press goes back on top of what the press entered. */
+    /**
+     * A mode that survived its own press takes the key back by walking forward to the
+     * entry the press left. Pushing a new entry instead would throw away whatever the
+     * user could still go forward to, and add an entry no user ever created.
+     */
     private reopenMode(mode: Mode): void {
         this.modes = [...untrack(() => this.modes), mode];
-        this.pushMode(mode);
+        history.go(1);
     }
 
     /** The entry a mode owns, over the state it is showing. */
