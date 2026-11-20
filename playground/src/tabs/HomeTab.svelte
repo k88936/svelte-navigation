@@ -6,4 +6,9 @@
     const Stack = createNativeStackNavigator<HomeStackParamList>();
 </script>
 
-<Stack.Navigator screens={homeScreens} initialRouteName="Home" screenOptions={{headerBackLabel: 'Back'}} />
+<Stack.Navigator
+    screens={homeScreens}
+    initialRouteName="Home"
+    screenOptions={{headerBackLabel: 'Back'}}
+    layerClass="bg-light text-dark"
+/>

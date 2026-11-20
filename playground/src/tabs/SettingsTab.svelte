@@ -10,4 +10,5 @@
     screens={settingsScreens}
     initialRouteName="Settings"
     screenOptions={{headerBackLabel: 'Back'}}
+    layerClass="bg-light text-dark"
 />
