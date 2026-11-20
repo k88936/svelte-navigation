@@ -1,0 +1,36 @@
+{
+    "name": "@k88936/svelte-navigation",
+    "version": "0.1.0",
+    "type": "module",
+    "svelte": "./src/index.ts",
+    "exports": {
+        ".": {
+            "svelte": "./src/index.ts",
+            "default": "./src/index.ts"
+        }
+    },
+    "files": [
+        "src"
+    ],
+    "scripts": {
+        "dev": "vite --config playground/vite.config.ts"
+    },
+    "peerDependencies": {
+        "svelte": "^5.0.0"
+    },
+    "devDependencies": {
+        "@sveltejs/vite-plugin-svelte": "7.3.1",
+        "@tailwindcss/vite": "4.3.3",
+        "svelte": "5.57.3",
+        "tailwindcss": "4.3.3",
+        "typescript": "~5.9.3",
+        "vite": "8.3.5"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/k88936/svelte-navigation.git"
+    }
+}
