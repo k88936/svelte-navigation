@@ -4,8 +4,8 @@ import tailwindcss from '@tailwindcss/vite';
 import {defineConfig} from 'vite';
 
 /**
- * The package's own playground: `pnpm nav:dev` then open it in a browser. It is
- * the only place the navigator can be tried without the app around it.
+ * The package's own playground: `pnpm dev` then open it in a browser, `pnpm build`
+ * for the site GitHub Pages publishes.
  */
 export default defineConfig({
     root: fileURLToPath(new URL('.', import.meta.url)),

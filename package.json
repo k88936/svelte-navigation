@@ -13,7 +13,8 @@
         "src"
     ],
     "scripts": {
-        "dev": "vite --config playground/vite.config.ts"
+        "dev": "vite --config playground/vite.config.ts",
+        "build": "vite build --config playground/vite.config.ts --base=/svelte-navigation/ && cp playground/dist/index.html playground/dist/404.html"
     },
     "peerDependencies": {
         "svelte": "^5.0.0"
