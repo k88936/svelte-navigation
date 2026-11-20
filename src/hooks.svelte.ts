@@ -60,6 +60,6 @@ function takeBack(visible: () => boolean, onBack: () => void, overlay: boolean):
     const taken = $derived(visible());
     $effect(() => {
         if (!taken) return;
-        return root.enterMode(entry, onBack, overlay);
+        return root.enterMode(entry, onBack, visible, overlay);
     });
 }

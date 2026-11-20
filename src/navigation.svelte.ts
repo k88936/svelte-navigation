@@ -44,6 +44,11 @@ type Mode = {
     id: number;
     entryKey: string;
     listener: () => void;
+    /**
+     * Whether the screen still claims the key after `listener` ran: one press may
+     * close one of several things (a selection under a search) and leave the rest.
+     */
+    holds: () => boolean;
     /** A dialog covers the screen but does not replace its header. */
     overlay: boolean;
 };
@@ -212,8 +217,8 @@ export class NavigationRoot {
      * open dialog. It owns a history entry of its own: without one, the back key
      * on a root screen would leave the WebView instead of reaching the app at all.
      */
-    enterMode(entry: ScreenEntry, listener: () => void, overlay = false): () => void {
-        const mode: Mode = {id: ++this.nextMode, entryKey: entry.key, listener, overlay};
+    enterMode(entry: ScreenEntry, listener: () => void, holds: () => boolean, overlay = false): () => void {
+        const mode: Mode = {id: ++this.nextMode, entryKey: entry.key, listener, holds, overlay};
         const released = this.released;
         this.released = null;
         this.modes = [...untrack(() => this.modes), mode];
@@ -248,6 +253,9 @@ export class NavigationRoot {
             if (mode) {
                 this.modes = this.modes.filter((current) => current !== mode);
                 mode.listener();
+                // The press took one thing away; a condition still true under it (a
+                // selection beside a search) keeps the key by taking a new entry.
+                if (mode.holds()) this.reopenMode(mode);
             }
             // An entry no live mode owns, left behind by one that closed while another was
             // open: this press goes on to the entry under it.
@@ -320,6 +328,12 @@ export class NavigationRoot {
 
     private owns(id: number): boolean {
         return this.modes.some((mode) => mode.id === id);
+    }
+
+    /** A mode that survived its own press goes back on top of what the press entered. */
+    private reopenMode(mode: Mode): void {
+        this.modes = [...untrack(() => this.modes), mode];
+        this.pushMode(mode);
     }
 
     /** The entry a mode owns, over the state it is showing. */
